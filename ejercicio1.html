@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Ejercicio 1</title>
+</head>
+
+<body>
+    <div>
+        <div style="width: 40%;margin: 0 auto">
+            <h2>
+                Escríbenos !!!
+            </h2>
+            <div class="resultado" style="color:green;font-style: italic">
+            </div>
+            <form id="formulario">
+                <div>
+                    <div style="display: flex;flex-direction: column;">
+                        <label>
+                            Nombre completo
+                        </label>
+                        <input id="nombre" type="text">
+                        <p class="errorNombre" style="color:red;font-style: italic;"></p>
+                    </div>
+                    <div style="display: flex;flex-direction: column;">
+                        <label>
+                            Asunto
+                        </label>
+                        <input id="asunto" type="text">
+                        <p class="errorAsunto" style="color:red;font-style: italic;"></p>
+                    </div>
+                </div>
+                <div style="display: flex;flex-direction: column;">
+                    <label>
+                        Mensaje
+                    </label>
+                    <textarea id="mensaje"></textarea>
+                    <p class="errorMensaje" style="color:red;font-style: italic;"></p>
+                </div>
+                <div>
+                    <button id="botton" type="submit">
+                        Envíar mensaje
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script>
+    // Escríbe aquí tu código
+        const pattern = /^[a-zA-Z\s]+$/;
+        const validateField = (value, errorClass, message) => {
+            if(value === ""){
+                document.querySelector(errorClass).innerHTML = message;
+            }else if(!pattern.test(value)){
+                document.querySelector(errorClass).innerHTML = "Solo se permiten letras de la A a la Z";
+            }else{
+                document.querySelector(errorClass).innerHTML = "";
+            }
+        }
+        const sendMessage = (event) => {
+            event.preventDefault();
+            const name = document?.getElementById("nombre").value;
+            const subject = document?.getElementById("asunto").value;
+            const message = document?.getElementById("mensaje").value;
+            validateField(name, ".errorNombre", "El nombre es requerido.");
+            validateField(subject, ".errorAsunto", "El asunto es requerido.");
+            validateField(message, ".errorMensaje", "El mensaje es requerido.");
+
+            if(pattern.test(name) && pattern.test(subject) && pattern.test(message)){
+                document.querySelector(".resultado").innerHTML = "Mensaje enviado con éxito!!!";
+            }else{
+                document.querySelector(".resultado").innerHTML = "";
+            }
+        }
+        const form = document.getElementById("formulario");
+        form?.addEventListener("submit", sendMessage);
+        
+    </script>
+</body>
+
+</html>
